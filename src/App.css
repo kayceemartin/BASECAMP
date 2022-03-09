@@ -1,38 +1,149 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./images/basecamp-logo.png');
+  background-repeat: no-repeat;
+}
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navigation {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 30px;
+  background-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navigation h1 {
+  font-size: 1.5em;
+  line-height: 20px;
+}
+.navigation__links-wrapper {
+  /* adds div wrapper for links */
+  display: flex;
+  flex-shrink: 1;
+  justify-content: space-between;
+}
+.navigation__links-wrapper > * {
+  margin-left: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+
+/* Create Form */
+.header {
+  /* header section */
+  padding: 30px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.header__title {
+  /* header section title */
+margin-bottom: 30px;
+font-size: 40px;
+}
+.header__form {
+  /* form body */
+  outline: 0;
+  border-style: solid;
+  
+  min-width: 50vw;
+  height: 60px;
+  display:flex;
+}
+.header__form{
+  /* form body */
+  outline: 0;
+  border: 0;
+}
+.form__input-text {
+  /* form text */
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 0 0 0 30px;
+}
+.header__form button {
+  /* form button */
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 0 30px;
+  font-size: 15px;
+  color: #444;
+}
+
+
+/* Main Content Table */
+.container {
+  /* wraps main section */
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  padding: 15px 30px 60px;
+  flex: 1;
+}
+.container__title {
+  /* sub heading - h2/h3 */
+}
+.container__main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  padding: 15px 60px;
+}
+.main__table {
+  position: relative;
+  width: 80%;
+  border-top: 2px solid darkgrey;
+}
+.table__head {
+  /* Table Head */
+  width: 100%;
+  font-weight: 600;
+}
+.table__head th{
+  /* Table Head */
+  padding: 30px 0;
+  text-align: left;
+}
+li:after{
+  content: ", "
+}
+li:last-of-type:after{
+  content: ""
 }
 
-.App-link {
-  color: #61dafb;
+.table__body {
+  /* Table Row Wrapper */
+}
+.table__row {
+  /* Table Row */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.table__row td > ul{
+  /* Table Row */
+  padding: 0;
+  display: flex;
+}
+.table__list-item {
+  /* Table Row */
+  list-style: none;
 }
