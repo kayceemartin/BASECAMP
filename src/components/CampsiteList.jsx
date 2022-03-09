@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
+const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp/allcampsites";
 
 function CampsiteList(props) {
   const [campsites, setCampsites] = useState([]);
