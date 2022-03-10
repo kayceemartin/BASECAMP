@@ -1,0 +1,43 @@
+* {
+    box-sizing: content-box;
+}
+
+.camplist {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 55px;
+}
+
+.campsite {
+  align-items: center;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  margin: 5 auto;
+  max-width: 200px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.campsite-card {
+    border: 5px solid lightgray;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .campsite-title {
+    background-color: white;
+    color: orangered;
+    border-radius: 0 0 1rem 1rem;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+  }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../NewCampsite.css"
 
 const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
 
@@ -39,7 +40,7 @@ function NewCampsite(props) {
 
   return (
     <header className="header">
-      <h1 className="header__title">""""</h1>
+      <h1 className="header__title">Go Somewhere New</h1>
       <form className="header__form" onSubmit={handleSubmit}>
         <input
           className="form__input-text"

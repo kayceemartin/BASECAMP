@@ -41,7 +41,7 @@ const RegisterForm = (props) => {
           />
           <br />
           <br />
-          <input type="submit" value="Add a reason to celebrate" />
+          <input type="submit" value="Join the camping community!" />
         </form>
       </>
     );
