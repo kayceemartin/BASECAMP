@@ -7,7 +7,7 @@ import staticData from '../data.js'
 
 const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
 
-function CampsiteList(props) {
+function TopCampsiteList(props) {
   const [campsites, setCampsites] = useState([...staticData]);
   console.log(campsites[0].name)
 
@@ -19,7 +19,7 @@ function CampsiteList(props) {
       <div className = 'campsite'>
         {campsites.map((campsites, index) => {
           return (
-              <Link to ={`/campsitedetail/${campsites.name}`} key = {campsites.name}>
+              <Link to ={`/basecamp/${campsites._id}`} key = {campsites.name}>
                 <div className = 'campsite-card'>
                   <div className = 'campsite-title'>
                     <h3>{campsites.name}</h3>  
@@ -34,4 +34,4 @@ function CampsiteList(props) {
 }
 
 
-export default CampsiteList;
+export default TopCampsiteList;

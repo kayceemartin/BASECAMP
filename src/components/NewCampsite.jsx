@@ -2,26 +2,37 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../NewCampsite.css"
 
-const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
 
 function NewCampsite(props) {
   const navigate = useNavigate();
-  const initialState = { name: "" };
+  const initialState = { name: "", description: "", location: "", category: "", payForSite: "" };
   const [campsiteInput, setCampsiteInput] = useState(initialState);
 
+  const handleFetch = async () =>{
+    const URL = "http://localhost:8000/basecamp"
+    fetch(URL)
+      .then(resp =>{
+        console.log(resp)
+        return resp.json()
+      })
+      .then(data => {
+        setCampsiteInput(data)
+      })
+  }
+
   const addCampsite = async (data) => {
-    try {
-      const config = {
+    const URL = "http://localhost:8000/basecamp"
+    const options = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const campsiteResp = await fetch(DB_URI, config);
-      const newCampsite = await campsiteResp.json();
-      console.log(newCampsite);
-      navigate("/basecamp", { replace: true });
+    try {
+      const createdCampsite = await fetch(URL, options);
+      console.log(createdCampsite)
+      
     } catch (err) {
       console.log(err);
     }
@@ -31,6 +42,7 @@ function NewCampsite(props) {
     e.preventDefault();
     addCampsite(campsiteInput);
     setCampsiteInput(initialState);
+    console.log('data to be sent:', campsiteInput)
   };
 
   const handleChange = (e) => {
@@ -43,10 +55,38 @@ function NewCampsite(props) {
       <h1 className="header__title">Go Somewhere New</h1>
       <form className="header__form" onSubmit={handleSubmit}>
         <input
-          className="form__input-text"
+          className="campsite-name-input-text"
           name="name"
-          placeholder="add a campsite"
+          placeholder="campsite name"
           value={campsiteInput.name}
+          onChange={handleChange}
+        />
+        <input
+          className="campsite-des-input-text"
+          name="description"
+          placeholder="tell us about the campsite"
+          value={campsiteInput.description}
+          onChange={handleChange}
+        />
+        <input
+          className="campsite-location-input-text"
+          name="location"
+          placeholder="location"
+          value={campsiteInput.location}
+          onChange={handleChange}
+        />
+        <input
+          className="campsite-cat-input-text"
+          name="category"
+          placeholder="what type of camping was it?"
+          value={campsiteInput.category}
+          onChange={handleChange}
+        />
+        <input
+          className="campsite-pfs-input-text"
+          name="payForSite"
+          placeholder="Did you have to pay for a campsite?"
+          value={campsiteInput.payForSite}
           onChange={handleChange}
         />
         <button type="submit">Gone Campin'</button>

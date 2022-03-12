@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
-const RegisterForm = (props) => {
+const Login = (props) => {
     const initialState = { username: "", password: ""}
     const [input, setInput] = useState(initialState);
     const navigate = useNavigate();
 
-    useEffect(()=>{
-      if (props.isAuthenticated){
+    useEffect(() => {
+      if (props.isAuthenticated) {
         return navigate ('/basecamp/userhomepage')
       }
     }, [props.isAuthenticated])
     
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const createdUserToken = await props.signUp(input);
-
-
+      const createdUserToken = await props.login(input);
+      
       setInput(initialState);
     };
     
@@ -26,7 +25,7 @@ const RegisterForm = (props) => {
   
     return (
       <>
-        <h1>Register</h1>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Name: </label>
           <input
@@ -46,10 +45,10 @@ const RegisterForm = (props) => {
           />
           <br />
           <br />
-          <input type="submit" value="Join the camping community!" />
+          <input type="submit" value="Go to BASECAMP" />
         </form>
       </>
     );
   };
 
-  export default RegisterForm;
+  export default Login;
