@@ -11,11 +11,11 @@ function TopCampsiteDetail(props) {
   const [campsite, setCampsite] = useState([...staticData]);
 
   function getCampsite (array, id) {
+
       return array.find(el => {
+          console.log(el._id)
           return el._id === id
       })
-    
-
   }
 
   if(!campsite) {
@@ -36,9 +36,9 @@ function TopCampsiteDetail(props) {
               <h3>Location: {campsites.location}</h3>
               <h3>Description: {campsites.description}</h3>  
           </div>
-          {/* <div className = 'comment-campsite'>
+          <div className = 'comment-campsite'>
               <Link to = '/basecamp/comment'>Comment on this campsite</Link>
-          </div> */}
+          </div>
           <div className= "nav-home">
               <Link to= '/basecamp/topcamplist'>Back to Top 50 Camplist</Link>
           </div>    

@@ -2,15 +2,13 @@ import {Link, useNavigate } from 'react-router-dom'
 import { clearUserToken, getUserToken} from '../utils/authToken'
 
 
-function Navigation(props) {
+function UserNavigation(props) {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
 
         clearUserToken()
         navigate('/basecamp', {replace: true} )
-
-        
     }
 
     return (
@@ -22,17 +20,17 @@ function Navigation(props) {
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/basecamp/userhomepage">Your Home Page</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/basecamp/userhomepage">Your Home Page</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/basecamp/topcamplist">Top 50 Campsites</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/basecamp/register">Sign Up</a>
+                <a class="nav-link" href="/basecamp/camplist">All Campsites</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/basecamp/login">Login</a>
+                <a class="nav-link" href="/basecamp/login">Logout</a>
               </li>
             </ul>
           </div>
@@ -40,4 +38,4 @@ function Navigation(props) {
       </nav>
     )
 }
-export default Navigation;
+export default UserNavigation

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserToken } from "../utils/authToken";
 import "../NewCampsite.css"
 
 
 function NewCampsite(props) {
   const navigate = useNavigate();
-  const initialState = { name: "", description: "", location: "", category: "", payForSite: "" };
+  const initialState = { name: "", description: "", location: "", category: "", payForSite: false };
   const [campsiteInput, setCampsiteInput] = useState(initialState);
 
   const handleFetch = async () =>{
@@ -27,6 +28,7 @@ function NewCampsite(props) {
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `bearer ${getUserToken()}`
         },
       };
     try {
@@ -37,6 +39,17 @@ function NewCampsite(props) {
       console.log(err);
     }
   };
+
+  // const togglePayForSite = async (campsite) => {
+  //   console.log(campsite)
+  //   const configs = {
+  //       method: 'PUT',
+  //       body: JSON.stringify({payForSite: !campsite.payForSite}),
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       }
+  //   }
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,13 +95,19 @@ function NewCampsite(props) {
           value={campsiteInput.category}
           onChange={handleChange}
         />
+        {/* <div className="toggle-switch">
         <input
-          className="campsite-pfs-input-text"
-          name="payForSite"
-          placeholder="Did you have to pay for a campsite?"
-          value={campsiteInput.payForSite}
-          onChange={handleChange}
+          type="checkbox"
+          className="toggle-switch-checkbox"
+          name="toggleSwitch"
+          id="toggleSwitch"
+          onChange={togglePayForSite}
         />
+        <label className="toggle-switch-label" htmlFor="togglePayForSite">
+          <span className="toggle-switch-inner" />
+          <span className="toggle-switch-switch" />
+        </label>
+      </div> */}
         <button type="submit">Gone Campin'</button>
       </form>
     </header>

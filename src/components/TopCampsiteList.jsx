@@ -1,7 +1,7 @@
-import '../TopCampsites.css'
 import { props, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import staticData from '../data.js'
+import {Card} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 
 
@@ -14,21 +14,18 @@ function TopCampsiteList(props) {
   return (!campsites) ? (
     <p>Gathering Firewood...</p>
   ) : (
-    <div className = 'camplist'>
-      <h1>The Top Rated Campsites in America</h1>
-      <div className = 'campsite'>
-        {campsites.map((campsites, index) => {
-          return (
-              <Link to ={`/basecamp/${campsites._id}`} key = {campsites.name}>
-                <div className = 'campsite-card'>
-                  <div className = 'campsite-title'>
-                    <h3>{campsites.name}</h3>  
-                  </div>  
-                </div>  
-              </Link>
-          )
-      })}
-      </div>  
+    <div>
+    {campsites.map((campsites, index) => {
+      return (
+    <Card style={{width: "18rem;"}}>
+      <Card.Body>
+        <Card.Title>{campsites.name}</Card.Title>
+        <Card.Text>{campsites.location}</Card.Text>
+        <Card.Text>Check out more about the campsite below.</Card.Text>
+        <Link to={`/basecamp/topcampsites/${campsites._id}`} key={campsites.name} className="card-link">Campsite Details</Link>
+      </Card.Body>
+    </Card>
+    )})}
     </div>
   );
 }

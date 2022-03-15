@@ -1,23 +1,30 @@
 import React from 'react'
 import { useState, useEffect } from "react"
 import { Routes, Route } from "react-router-dom";
+import { clearUserToken, getUserToken,setUserToken } from './utils/authToken';
 import staticData from "../src/data";
 import "./Home.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from './components/images/basecamp-logo.png'
+
+
+
+
 
 // Component Imports
 import Basecamp from './components/Home';
 import Navigation from "./components/Navigation";
 import NewCampsite from "./components/NewCampsite";
-import TopCampsiteList from "./components/TopCampsiteList";
-import TopCampsiteDetail from "./components/TopCampsiteDetail";
-import EditCampsite from "./components/EditCampsites";
+import CampsiteList from './components/CampsiteList';
+import AllCampsiteDetail from "./components/AllCampsiteDetail";
 import RegisterForm from './components/RegisterForm';
 import Login from './components/Login';
-import Comment from './components/Comment';
+import TopCommentBox from './components/CommentBox/TopCommentBox/TopCommentBox'
 import UserHomePage from './components/UserHomePage';
-import { clearUserToken, getUserToken,setUserToken } from './utils/authToken';
-
-
+import TopCampsiteList from './components/TopCampsiteList';
+import TopCampsiteDetail from './components/TopCampsiteDetail';
+import MessageScroll from './MessageScroll';
+import {ContextProvider} from './Context/Context'
 
 
 
@@ -59,16 +66,17 @@ function App() {
   }
 
 
-  const Login = async (data) => {
+  const loginUser = async (data) => {
     try {
       const configs = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `bearer ${getUserToken()}`
         }
       }
-      const newUser = await fetch('http://localhost:8000/auth/register', configs)
+      const newUser = await fetch('http://localhost:8000/auth/login', configs)
       const parsedUser = await newUser.json()
       console.log(parsedUser)
 
@@ -91,38 +99,32 @@ function App() {
 
   console.log(campsites)
 
-  const handleFetch = async () => {
-    const URL = 'http://localhost:8000/basecamp/'
-    fetch(URL).then(resp => {
-      console.log(resp)
-      return resp.json()
-    })
-      .then(data => {
-        console.log(data)
-        //console.log(campsites[0].name)
-      })
-  }
-
-  useEffect(() => {
-    handleFetch()
-  })
+  
 
   return (
     <div className="App">
       <Navigation />
+      <div>
+      {/* <img src = {Logo}></img> */}
+      </div>
       <Routes>
         <Route path="/" element={<Basecamp />} />
-        <Route path="/basecamp/topcamplist" element={<TopCampsiteList campsites={campsites} />} />
-        <Route path="/basecamp/:id" element={<TopCampsiteDetail />} />
+        <Route path="/basecamp/camplist" element={<CampsiteList campsites={campsites} />} />
+        <Route path = 'basecamp/topcamplist' element={<TopCampsiteList campsites={campsites}/>} />
+        <Route path="/basecamp/allcampsites/:id" element={<AllCampsiteDetail />} />
+        <Route path = '/basecamp/topcampsites/:id' element={<TopCampsiteDetail />} />
         <Route path="/basecamp/new" element={<NewCampsite />} />
-        <Route path="/basecamp/:id/edit" element={<EditCampsite />} />
         <Route path="/basecamp/register" element={<RegisterForm signUp={registerUser} isAuthenticated={isAuthenticated}/>} />
-        <Route path="/basecamp/login" element={<Login login={Login} isAuthenticated={isAuthenticated}/>} />
-        <Route path='/basecamp/comment' element={<Comment />} />
+        <Route path="/basecamp/login" element={<Login signIn={loginUser} isAuthenticated={isAuthenticated}/>} />
+        <Route path='/basecamp/comment' element={<TopCommentBox />} />
         <Route path='/basecamp/userhomepage' element={<UserHomePage />} />
       </Routes>
+      <MessageScroll />
+      <ContextProvider />
     </div>
   );
 }
 
 export default App;
+
+ 

@@ -14,7 +14,7 @@ const Login = (props) => {
     
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const createdUserToken = await props.login(input);
+      const createdUserToken = await props.signIn(input);
       
       setInput(initialState);
     };

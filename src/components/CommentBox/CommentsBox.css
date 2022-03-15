@@ -1,0 +1,57 @@
+form {
+    overflow: auto;
+}
+
+form input[type="text"] {
+    width: 90%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 12px 20 px 12 px 0;
+    background-color: transparent;
+}
+
+.commentBox {
+    position: relative;
+}
+
+.commentLine {
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    height: 2px;
+    background-color: orangered;
+    transform: scaleX(0);
+    animation: commentLineScaleIn 0.2s forwards;
+}
+
+@keyframes commentLineScaleIn {
+    0%{
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.commentButton {
+    font-size: .9rem;
+    font-weight: bold;
+    float: right;
+    border: none;
+    margin: 10px 0 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.sendButton {
+    background-color: orangered;
+    color: white;
+}
+
+.sendButton:disabled {
+    color: white;
+    cursor: default;
+    background-color: #CCCCCC;
+}
