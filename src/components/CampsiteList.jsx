@@ -1,17 +1,18 @@
 
 import { props, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {Card} from 'react-bootstrap'
 
 
 
-const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
+
+const DB_URI = process.env.REACT_APP_DB_URI || "http://localhost:8000/basecamp";
 
 function CampsiteList(props) {
   const [campsites, setCampsites] = useState([]);
 
   const handleFetch = async () => {
-    const URL = 'http://localhost:8000/basecamp/'
+    const URL = `${DB_URI}/basecamp`
     fetch(URL).then(resp => {
       console.log(resp)
       return resp.json()

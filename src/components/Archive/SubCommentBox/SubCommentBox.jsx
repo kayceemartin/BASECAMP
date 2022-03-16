@@ -1,7 +1,12 @@
 import React, { useRef, useState } from 'react';
-import '../CommentsBox.css';
+import { useOpenReply } from '../../Message/Message'
+import {useMainContext} from '../../../Context/Context'
 
-function TopCommentBox(props) {
+function SubCommentBox(props) {
+    const{setMessageUpdate} = useMainContext()
+
+    const changeOpenReply = useOpenReply();
+
     const message = useRef(null);
     //Trigger the underline animation
     const [showCommentLine, setCommentLine] = useState(false);
@@ -24,7 +29,7 @@ function TopCommentBox(props) {
     //if input value isnt empty then enable the comment btn
     const commentStroke = event => {
         let currMessage = event.target.value;
-        if(currMessage) {
+        if (currMessage) {
             setEnableBtn(false);
         } else {
             setEnableBtn(true);
@@ -33,35 +38,43 @@ function TopCommentBox(props) {
 
     const sendComment = (event) => {
         event.preventDefault();
+        fetch(`${process.env.SERVER_URL}/comments/new-sub-comment`, {
+            method: "POST",
+            heeaders: { "Content=Type": "application/json" },
+            body: JSON.stringify({ messageId: props.parentKey, messageData: message.current.value })
+        }).then(() => {
+            setMessageUpdate([1, props.parentKey])
+            
+        })
 
     }
 
     return (
         <form>
-            <section className= 'commentBox'>
+            <section className='commentBox'>
                 <input autoFocus={props.autoFocus}
                     type="text"
                     placeholder='comment on the campsite here'
                     ref={message}
-                    onFocus = {commentFocus}
-                    onBlur = {commentFocusOut}
-                    onKeyUp = {commentStroke}
+                    onFocus={commentFocus}
+                    onBlur={commentFocusOut}
+                    onKeyUp={commentStroke}
                 />
-                {showCommentLine &&<div className='commentLine'></div>}
+                {showCommentLine && <div className='commentLine'></div>}
             </section>
             {showButtons && (
                 <>
-                <button className = 'commentButton sendButton' disabled ={enableBtn}onClick={sendComment}>COMMENT</button>
-                <button className ='commentButton' style={{color: 'gray', backgroundColor: "transparent"}}
-                onClick={() => {
-                    setShowButtons(false);
-                    message.current.value =''
-                }}>CANCEL</button>
+                    <button className='commentButton sendButton' disabled={enableBtn} onClick={sendComment}>COMMENT</button>
+                    <button className='commentButton' style={{ color: 'gray', backgroundColor: "transparent" }}
+                        onClick={() => {
+                            setShowButtons(false)
+                            changeOpenReply()
+                        }}>CANCEL</button>
                 </>
-                
+
             )}
         </form>
     )
 }
 
-export default TopCommentBox;
+export default SubCommentBox;

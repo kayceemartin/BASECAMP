@@ -23,11 +23,11 @@
     margin: 5px 0;
 }
 
-.messageIconContainer {
+.messageIconsContainer {
     margin-top: 10px;
 }
 
-.messageIconContainer > * {
+.messageIconsContainer > * {
     display: inline-block;
     color: gray;
     margin-right: 10px;

@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
-import {useOpenReply} from '../../Message/Message'
+import '../CommentsBox.css';
+import {useMainContext} from '../../../Context/Context';
 
-function SubCommentBox(props) {
 
-    const changeOpenReply =  useOpenReply();
+function TopCommentBox(props) {
+
+    const{setMessageReset, setCommentIncrement} = useMainContext();
 
     const message = useRef(null);
     //Trigger the underline animation
@@ -34,8 +36,21 @@ function SubCommentBox(props) {
         }
     }
 
+    //send comment
     const sendComment = (event) => {
         event.preventDefault();
+        fetch(`${process.env.SERVER_URL}/comments/new-comment`, {
+            methond: "POST",
+            headers: {"Content-Type" : "application/JSON"},
+            body: JSON.stringify({messageData: message.current.value})
+        }).then(() => {
+            //resent entire comments and matching increment counter
+            setMessageReset (prevState => !prevState);
+            setCommentIncrement(10)
+            //delete text input, update comments, and disable comment btn
+            message.current.value='';
+            setEnableBtn(true);
+        })
 
     }
 
@@ -57,8 +72,8 @@ function SubCommentBox(props) {
                 <button className = 'commentButton sendButton' disabled ={enableBtn}onClick={sendComment}>COMMENT</button>
                 <button className ='commentButton' style={{color: 'gray', backgroundColor: "transparent"}}
                 onClick={() => {
-                    setShowButtons(false)
-                    changeOpenReply()
+                    setShowButtons(false);
+                    message.current.value =''
                 }}>CANCEL</button>
                 </>
                 
@@ -67,4 +82,4 @@ function SubCommentBox(props) {
     )
 }
 
-export default SubCommentBox;
+export default TopCommentBox;

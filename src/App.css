@@ -1,0 +1,37 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.holder{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1600px;
+}
+
+.bottomBar{
+   display: flex;
+   width: 100%;
+   margin: 20px 0;
+   justify-content: center;
+}
+
+.loader {
+    width: 50%;
+    height: 50px;
+    border-radius: 50px;
+    border: 5px solid lightgrey;
+    border-top: 5px solid orangered;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) ;
+    }
+}

@@ -7,12 +7,13 @@
     padding: 0;
   }
   
-  navigation__links-wrapper {
-    justify-content: right;
-    margin-left: auto;
-  }
-  
   
   header {
     justify-content: center;
+  }
+
+  .img {
+    justify-content: center;
+    display: flex;
+    height: 600px;
   }

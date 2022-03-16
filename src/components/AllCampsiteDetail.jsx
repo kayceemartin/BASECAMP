@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import {Button} from 'react-bootstrap'
 
 
-const DB_URI = process.env.DB_URI || "http://localhost:8000/basecamp";
+const DB_URI = process.env.REACT_APP_DB_URI|| "http://localhost:8000/basecamp";
 
 function AllCampsiteDetail(props) {
   let { id } = useParams();
@@ -11,7 +12,7 @@ function AllCampsiteDetail(props) {
   const [campsite, setCampsite] = useState(null);
 
   function getCampsite () {
-    const URL = 'http://localhost:8000/basecamp/' + id
+    const URL = `${process.env.REACT_APP_DB_URI}/basecamp/${id}`
     fetch(URL).then(resp => {
       console.log(resp)
       return resp.json()
@@ -25,6 +26,21 @@ function AllCampsiteDetail(props) {
   useEffect ( ()=> {
     getCampsite()
   }, [])
+
+  const deleteCampsite = async () => {
+    const URL = `${process.env.REACT_APP_DB_URI}/basecamp/${id}`
+    const options = {
+        method: "DELETE"
+      };
+    try {
+      const deletedCampsite = await fetch(URL, options);
+      const campData = await deletedCampsite.json()
+      console.log(campData)
+      navigate("/basecamp/camplist", {new: true})
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if(!campsite) {
     return <p>Gathering Firewood</p>
@@ -47,9 +63,15 @@ function AllCampsiteDetail(props) {
           <div className= "nav-home">
             <Link to= '/basecamp/camplist'>Back to all campsites</Link>
           </div>
-          <div className = "nav-to-comments">
+          <div className= "nav-home">
+            <Button variant="primary" onClick={deleteCampsite}>Delete campsite</Button>
+          </div>
+          <div className= "nav-home">
+          <Link to ={`/basecamp/edit/${id}`}><Button variant="primary">Edit your campsite</Button></Link>
+          </div>
+          {/* <div className = "nav-to-comments">
             <Link to = '/basecamp/comment'>See Comments About Campsite</Link>
-          </div>    
+          </div>     */}
       </div>
   );
 }

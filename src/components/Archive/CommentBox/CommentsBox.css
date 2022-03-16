@@ -6,8 +6,8 @@ form input[type="text"] {
     width: 90%;
     outline: none;
     border: none;
-    border-bottom: 1px solid lightgray;
-    padding: 12px 20 px 12 px 0;
+    border-bottom: 1px solid lightgrey;
+    padding: 12px 20px 12px 0;
     background-color: transparent;
 }
 

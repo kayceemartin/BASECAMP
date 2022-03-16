@@ -30,7 +30,7 @@ function UserNavigation(props) {
                 <a class="nav-link" href="/basecamp/camplist">All Campsites</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/basecamp/login">Logout</a>
+                <a class="nav-link" href="/basecamp" onClick={handleLogout}>Logout</a>
               </li>
             </ul>
           </div>

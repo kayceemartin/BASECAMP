@@ -1,17 +1,15 @@
-import {Link, useNavigate } from 'react-router-dom'
-import { clearUserToken, getUserToken} from '../utils/authToken'
 
 
-function Navigation(props) {
-    const navigate = useNavigate();
 
-    const handleLogout = async () => {
+function Navigation() {
+    // const navigate = useNavigate();
 
-        clearUserToken()
-        navigate('/basecamp', {replace: true} )
+    // const handleLogout = async () => {
 
-        
-    }
+    //     clearUserToken()
+    //     navigate('/', {replace: true} )
+    // }
+
 
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,11 +27,17 @@ function Navigation(props) {
                 <a class="nav-link" href="/basecamp/topcamplist">Top 50 Campsites</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/basecamp/new">Add a Campsite</a>
+              </li>
+              {/* <li class="nav-item">
                 <a class="nav-link" href="/basecamp/register">Sign Up</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/basecamp/login">Login</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/basecamp" onClick={props.handleLogout}>Logout</a>
+              </li> */}
             </ul>
           </div>
         </div>

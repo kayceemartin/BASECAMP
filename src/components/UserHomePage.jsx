@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import {Button} from 'react-bootstrap'
 
 
 
@@ -11,11 +12,13 @@ function UserHomePage() {
         <div>
             <h1>Welcome to BASECAMP</h1>
             <div>
-                <Link to = "/basecamp/topcamplist">Top 50 Campsites</Link>
+            <h2>View the Top 50 Campsites Across America!</h2>
+            <Link to ='/basecamp/topcamplist'><Button variant="primary">Top 50 Campsites</Button></Link>
             </div>
-            
-            <h2>Gone camping recently? Dont see it on our camplist?</h2>
-            <Link to ='/basecamp/new'>Add it here!</Link>
+            <div>
+               <h2>Gone camping recently? Dont see it on our camplist?</h2>
+            <Link to ='/basecamp/new'><Button variant="primary">Add it here!</Button></Link>  
+            </div>
             {/* //NewCampsite here, (put that in "all campsite lists")
         //edit *your campsite*
         //delete *your* campsite

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserToken } from "../utils/authToken";
 import "../NewCampsite.css"
 
 
@@ -9,32 +8,30 @@ function NewCampsite(props) {
   const initialState = { name: "", description: "", location: "", category: "", payForSite: false };
   const [campsiteInput, setCampsiteInput] = useState(initialState);
 
-  const handleFetch = async () =>{
-    const URL = "http://localhost:8000/basecamp"
-    fetch(URL)
-      .then(resp =>{
-        console.log(resp)
-        return resp.json()
-      })
-      .then(data => {
-        setCampsiteInput(data)
-      })
-  }
+  // if (!props.isAuthenticated) {
+  //   navigate('/basecamp/login', {new:true})
+  //   return(
+  //     <h1>redirecting to login</h1>
+  //   )
+  // }
+
 
   const addCampsite = async (data) => {
-    const URL = "http://localhost:8000/basecamp"
+    const URL = `${process.env.REACT_APP_DB_URI}/basecamp`
     const options = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `bearer ${getUserToken()}`
+          // "Authorization": `bearer ${getUserToken()}`
         },
       };
     try {
       const createdCampsite = await fetch(URL, options);
       console.log(createdCampsite)
-      
+      const campData = await createdCampsite.json()
+      console.log(campData)
+      navigate("/basecamp/camplist", {new: true})
     } catch (err) {
       console.log(err);
     }
@@ -49,6 +46,11 @@ function NewCampsite(props) {
   //           'Content-Type': 'application/json'
   //       }
   //   }
+  // }
+
+  // const handleAddCampsiteList = (e) => {
+  //   e.preventDefault();
+  //   [updatedCamp]
   // }
 
   const handleSubmit = (e) => {
@@ -95,19 +97,7 @@ function NewCampsite(props) {
           value={campsiteInput.category}
           onChange={handleChange}
         />
-        {/* <div className="toggle-switch">
-        <input
-          type="checkbox"
-          className="toggle-switch-checkbox"
-          name="toggleSwitch"
-          id="toggleSwitch"
-          onChange={togglePayForSite}
-        />
-        <label className="toggle-switch-label" htmlFor="togglePayForSite">
-          <span className="toggle-switch-inner" />
-          <span className="toggle-switch-switch" />
-        </label>
-      </div> */}
+        
         <button type="submit">Gone Campin'</button>
       </form>
     </header>
